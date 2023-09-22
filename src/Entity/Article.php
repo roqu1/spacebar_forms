@@ -45,6 +45,11 @@ class Article
      */
     private $publishedAt;
 
+    public function isPublished(): bool
+    {
+        return $this->publishedAt !== null;
+    }
+
     /**
      * @ORM\Column(type="integer")
      */
@@ -165,7 +170,7 @@ class Article
 
     public function getImagePath()
     {
-        return 'images/'.$this->getImageFilename();
+        return 'images/' . $this->getImageFilename();
     }
 
     /**
