@@ -16,7 +16,10 @@ class ArticleFormType extends AbstractType
             ->add("title", TextType::class, [
                 'help' => 'Choose something catchy!'
             ])
-            ->add("content");
+            ->add("content")
+            ->add("publishedAt", null, [
+                'widget' => 'single_text'
+            ]);
     }
 
     // This method suggests to Symfony what type of object this form is going to be used for
