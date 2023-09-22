@@ -2,8 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\Article;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ArticleFormType extends AbstractType
 {
@@ -12,5 +14,13 @@ class ArticleFormType extends AbstractType
         $builder
             ->add("title")
             ->add("content");
+    }
+
+    // This method suggests to Symfony what type of object this form is going to be used for
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'data_class' => Article::class
+        ]);
     }
 }
