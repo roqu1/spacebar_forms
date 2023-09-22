@@ -45,6 +45,7 @@ class Article
      */
     private $publishedAt;
 
+
     public function isPublished(): bool
     {
         return $this->publishedAt !== null;
