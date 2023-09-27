@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -32,7 +34,7 @@ class User implements UserInterface
     private $roles = [];
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups("main")
      */
     private $firstName;
@@ -168,7 +170,7 @@ class User implements UserInterface
 
     public function getAvatarUrl(int $size = null): string
     {
-        $url = 'https://robohash.org/'.$this->getEmail();
+        $url = 'https://robohash.org/' . $this->getEmail();
 
         if ($size) {
             $url .= sprintf('?size=%dx%d', $size, $size);
