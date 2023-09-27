@@ -32,6 +32,7 @@ class ArticleFormType extends AbstractType
             ])
             ->add("author", EntityType::class, [
                 'class' => User::class,
+                // we configure the way that the author field is rendered: (1) emailexample@example.com
                 'choice_label' => function (User $user) {
                     return sprintf("(%d) %s", $user->getId(), $user->getEmail());
                 },
