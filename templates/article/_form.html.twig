@@ -1,0 +1,13 @@
+{# Form start is like form method=POST #}
+{{ form_start(articleForm) }}
+{{ form_row(articleForm.title, {
+		label: 'Article Title',
+	}) }}
+{{ form_row(articleForm.content) }}
+{{ form_row(articleForm.publishedAt) }}
+{{ form_row(articleForm.author) }}
+
+<button type="submit" class="btn btn-primary">{{ button_text }}
+</button>
+{{ form_end(articleForm) }}
+{# {/form} #}
