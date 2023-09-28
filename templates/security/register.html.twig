@@ -18,7 +18,14 @@
 {{- form_label(form,null , {label_attr: {'class': 'sr-only'}}) -}}
 {{- form_errors(form) -}}
 {{- form_widget(form, widget_attr) -}}
-{{- form_help(form) -}}{%- endblock form_row -%}{% block body %}
+{{- form_help(form) -}}{%- endblock form_row -%}{% block _user_registration_form_agreeTerms_checkbox_row %}
+<div class="checkbox mb-3">
+	{{ form_errors(form) }}
+	<label>
+		<input type="checkbox" name="_terms" required>
+		Agree to terms I for sure read
+	</label>
+</div>{% endblock %}{% block body %}
 
 {{ form_start(registrationForm,  {
 				attr:	{ 'class': 'form-signin' }
