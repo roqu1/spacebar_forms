@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% form_theme registrationForm _self %}
 
 {% block title %}Register!
 {% endblock %}
@@ -9,41 +10,47 @@
 	<link rel="stylesheet" href="{{ asset('css/login.css') }}">
 {% endblock %}
 
-{% block body %}
-	<div class="container">
-		<div class="row">
-			<div
-				class="col-sm-12">
-				{# todo - replace with a Symfony form! #}
+{%- block form_row -%}
+{%- set widget_attr = {} -%}
+{%- if help is not empty -%}
+	{%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
+{%- endif -%}
+{{- form_label(form) -}}
+{{- form_errors(form) -}}
+{{- form_widget(form, widget_attr) -}}
+{{- form_help(form) -}}{%- endblock form_row -%}{% block body %}
+<div class="container">
+	<div class="row">
+		<div
+			class="col-sm-12">
+			{# todo - replace with a Symfony form! #}
 
-				{{ form_start(registrationForm, {
+			{{ form_start(registrationForm, {
 					'class': 'form-signin'
 				}) }}
-				<h1 class="h3 mb-3 font-weight-normal">Register</h1>
-				{{ form_widget(registrationForm) }}
+			<h1 class="h3 mb-3 font-weight-normal">Register</h1>
+			{{ form_widget(registrationForm) }}
 
-				<button class="btn btn-lg btn-primary btn-block" type="submit">
-					Register
-				</button>
-				{{ form_end(registrationForm) }}
+			<button class="btn btn-lg btn-primary btn-block" type="submit">
+				Register
+			</button>
+			{{ form_end(registrationForm) }}
 
-				{# <form class="form-signin" method="post">
-														 <h1 class="h3 mb-3 font-weight-normal">Register</h1>
-														 <label for="inputEmail" class="sr-only">Email address</label>
-														 <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-														<label for="inputPassword" class="sr-only">Password</label>
-												<input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
-																																										
-												<div class="checkbox mb-3">
-												<label>
-												<input type="checkbox" name="_terms" required> Agree to terms I for sure read
-												</label>
-												</div>
-												<button class="btn btn-lg btn-primary btn-block" type="submit">
-												Register
-												</button>
-												</form> #}
-			</div>
+			{# <form class="form-signin" method="post">
+																	<h1 class="h3 mb-3 font-weight-normal">Register</h1>
+																	<label for="inputEmail" class="sr-only">Email address</label>
+																	<input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+																	<label for="inputPassword" class="sr-only">Password</label>
+																	<input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+																	<div class="checkbox mb-3">
+																	<label>
+																	<input type="checkbox" name="_terms" required> Agree to terms I for sure read
+																	</label>
+																	</div>
+																	<button class="btn btn-lg btn-primary btn-block" type="submit">
+																	Register
+																	</button>
+														</form> #}
 		</div>
 	</div>
-{% endblock %}
+</div>{% endblock %}
