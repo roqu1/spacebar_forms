@@ -30,17 +30,7 @@ class ArticleFormType extends AbstractType
             ->add("publishedAt", null, [
                 'widget' => 'single_text'
             ])
-            ->add("author", EntityType::class, [
-                'class' => User::class,
-                // we configure the way that the author field is rendered: (1) emailexample@example.com
-                'choice_label' => function (User $user) {
-                    return sprintf("(%d) %s", $user->getId(), $user->getEmail());
-                },
-                'placeholder' => 'Choose an author',
-                'choices' => $this->userRepository
-                    ->findAllEmailAlphabetical(),
-                'invalid_message' => 'Symfony is too smart for your hacking!'
-            ]);
+            ->add("author", UserSelectTextType::class);
     }
 
     // This method suggests to Symfony what type of object this form is going to be used for
