@@ -48,7 +48,6 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             /**@var User user */
             $user = $form->getData();
 
