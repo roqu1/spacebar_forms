@@ -8,6 +8,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormView;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -40,10 +42,19 @@ class UserSelectTextType extends AbstractType
             'finder_callback' => function (UserRepository $userRepository, string $email) {
                 return $userRepository->findOneBy(['email' => $email]);
             },
-            'attr' => [
-                'class' => 'js-user-autocomplete',
-                'data-autocomplete-url' => $this->router->generate('admin_utility_users')
-            ]
         ]);
+    }
+
+    public function buildView(FormView $view, FormInterface $form, array $options)
+    {
+        $attr = $view->vars['attr']; // get existing attributes from view
+        $class = isset($attr['class']) ? $attr['class'] . ' ' : ''; // get existing class attribute and add space or empty string
+
+        $class .= 'js-user-autocomplete'; // add new class to existing class attribute
+
+        $attr['class'] = $class; // set new class attribute
+        $attr['data-autocomplete-url'] = $this->router->generate('admin_utility_users'); // set new data-autocomplete-url attribute
+
+        $view->vars['attr'] = $attr; // set new attributes to view
     }
 }
