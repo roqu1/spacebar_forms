@@ -8,14 +8,17 @@
 	{{ form_row(articleForm.publishedAt) }}
 {% endif %}
 
-{{ form_row(articleForm.location) }}
-
+{{ form_row(articleForm.location, {
+	attr: {
+		'data-specific-location-url':path('admin_article_location_select'),
+		class: 'js-article-form-location'
+	}
+}) }}
+<div class="js-specific-location-target">
 {% if articleForm.specificLocationName is defined %}
-	{# {% if articleForm.vars.data.location is not null %} #}
 		{{ form_row(articleForm.specificLocationName) }}
-	{# {% endif %} #}
 {% endif %}
-
+</div>
 {{ form_row(articleForm.author) }}
 
 <button type="submit" class="btn btn-primary">{{ button_text }}
