@@ -23,8 +23,10 @@ class ArticleFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $article = $options['data'] ?? null;
-        $isEdit = $article && $article->getId();
+        /** @var Article|null $article */
+        $article = $options['data'] ?? null; // If there is no data, then it will be null
+        $isEdit = $article && $article->getId(); // If there is an article and it has an id, then it is an edit
+        $location = $article ? $article->getLocation() : null;
 
         $builder
             ->add("title", TextType::class, [
@@ -44,13 +46,14 @@ class ArticleFormType extends AbstractType
                     'Near a star' => 'star',
                     'Interstellar Space' => 'interstellar_space'
                 ], 'required' => false,
-            ])
-            ->add("specificLocationName", ChoiceType::class, [
-                'placeholder' => 'Choose a location',
-                'choices' => [
-                    'TODO'
-                ], 'required' => false,
             ]);
+        if ($location) {
+            $builder->add("specificLocationName", ChoiceType::class, [
+                'placeholder' => 'Choose a location',
+                'choices' => $this->getLocationNameChoices($location),
+                'required' => false,
+            ]);
+        }
 
         if ($options['include_published_at']) {
             $builder->add("publishedAt", null, [
@@ -67,5 +70,34 @@ class ArticleFormType extends AbstractType
             'include_published_at' => false,
 
         ]);
+    }
+
+    private function getLocationNameChoices(string $location)
+    {
+        $planets = [
+            'Mercury',
+            'Venus',
+            'Earth',
+            'Mars',
+            'Jupiter',
+            'Saturn',
+            'Uranus',
+            'Neptune',
+        ];
+        $stars = [
+            'Polaris',
+            'Sirius',
+            'Alpha Centauari A',
+            'Alpha Centauari B',
+            'Betelgeuse',
+            'Rigel',
+            'Other'
+        ];
+        $locationNameChoices = [
+            'solar_system' => array_combine($planets, $planets),
+            'star' => array_combine($stars, $stars),
+            'interstellar_space' => null,
+        ];
+        return $locationNameChoices[$location];
     }
 }

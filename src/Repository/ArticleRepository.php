@@ -31,16 +31,14 @@ class ArticleRepository extends ServiceEntityRepository
             ->addSelect('t')
             ->orderBy('a.publishedAt', 'DESC')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
 
     public static function createNonDeletedCriteria(): Criteria
     {
         return Criteria::create()
             ->andWhere(Criteria::expr()->eq('isDeleted', false))
-            ->orderBy(['createdAt' => 'DESC'])
-        ;
+            ->orderBy(['createdAt' => 'DESC']);
     }
 
     /*
