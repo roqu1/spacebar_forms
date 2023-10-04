@@ -11,7 +11,9 @@
 {{ form_row(articleForm.location) }}
 
 {% if articleForm.specificLocationName is defined %}
-	{{ form_row(articleForm.specificLocationName) }}
+	{# {% if articleForm.vars.data.location is not null %} #}
+		{{ form_row(articleForm.specificLocationName) }}
+	{# {% endif %} #}
 {% endif %}
 
 {{ form_row(articleForm.author) }}
